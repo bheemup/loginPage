@@ -13,6 +13,7 @@ router.get('/',async(req,res)=>{
     // res.send("hii this is router home page ")
     const data = await User.find()
     return res.send({data:data})
+    
 })
 
 
