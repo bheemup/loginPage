@@ -20,13 +20,13 @@ router.get('/',async(req,res)=>{
 router.post("/login",async(req,res)=>{
     const {email,password}= req.body;
     if(!email || !password){
-        return res.status(400).json({message:"please fill details properly"})
+        return res.status(400).json({message:"please fill details properly",status:400})
     }else{
         let login_user= await User.findOne({email:email});
         if(login_user){
-            return res.status(201).json({message:"login successfully"})
+            return res.status(201).json({message:"login successfully",status:201})
         }else{
-               return res.status(400).json({message:"you don`t have an acount please signUp"})
+               return res.status(400).json({message:"you don`t have an acount please signUp",status:400})
         }
     }
 })
@@ -35,18 +35,18 @@ router.post("/login",async(req,res)=>{
 router.post("/register",async(req,res)=>{
     const {name,phone,email,password}=req.body;
     if(!name || !phone || !password){
-        return res.status(422).json({message:"please fill all details properly"})
+        return res.status(422).json({message:"please fill all details properly",status:422})
     }
 
 
    let userExist = await User.findOne({email:email})
        if(userExist){
-        return res.status(422).json({message:"user exist already"})
+        return res.status(422).json({message:"user exist already",status:422})
        }else{
         const user = new User({name,email,password,phone})
         user.save().then(()=>{
-            res.status(201).json({message:"user data  is saved"})
-        }).catch((err)=>res.status(500).json({err:err}))
+            res.status(201).json({message:"user data  is saved",status:201})
+        }).catch((err)=>res.status(500).json({err:err,status:500}))
        }
          
 
