@@ -1,8 +1,6 @@
 const express = require("express");
 const dotenv= require("dotenv");
 dotenv.config()
-//  const User =require("./models/userSchema")
-// require("./db/conn")
 const app = express();
 const port = process.env.PORT || 3000;
 dotenv.config({path:'./config.env'})
@@ -10,7 +8,6 @@ app.use(express.json())
 app.use(require('./routes/auth'))
    require("./db/conn")
 
-// 
  app.get("/", (req,res)=>{
     res.send("hello world from server")
  })

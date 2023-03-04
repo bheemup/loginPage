@@ -1,5 +1,4 @@
 const express =require("express");
-const mongoose =require("mongoose")
 const app = express();
 app.use(express.json())
 const router = express.Router();
@@ -24,7 +23,10 @@ router.post("/login",async(req,res)=>{
     }else{
         let login_user= await User.findOne({email:email});
         if(login_user){
-            return res.status(201).json({message:"login successfully",status:201})
+            if(login_user.password==password)
+                 return res.status(201).json({message:"login successfully",status:201})
+            else
+                 return res.status(404).json({message:"Invalid Password",status:400})
         }else{
                return res.status(400).json({message:"you don`t have an acount please signUp",status:400})
         }
